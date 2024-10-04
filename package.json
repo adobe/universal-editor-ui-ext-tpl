@@ -1,0 +1,26 @@
+{
+  "name": "universal-editor-ui-ext-tpl",
+  "description": "Add your template's description here",
+  "version": "0.0.1",
+  "main": "src/index.js",
+  "keywords": [
+    "ecosystem:aio-app-builder-templates"
+  ],
+  "dependencies": {
+    "yeoman-generator": "^5",
+    "yeoman-environment": "^3"
+  },
+  "devDependencies": {
+      "jest": "^29",
+      "stdout-stderr": "^0.1.13",
+      "yeoman-test": "^6.3.0",
+      "fs-extra": "^10",
+      "@adobe/aio-lib-template-validation": "^4.0.0"
+  },
+  "scripts": {
+    "validate": "tv run-checks .",
+    "test": "npm run unit-tests && npm run validate",
+    "unit-tests": "jest ./test",
+    "e2e": "node test/e2e.js"
+  }
+}
