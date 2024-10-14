@@ -1,41 +1,32 @@
-# Starter Template (universal-editor-ui-ext-tpl)
+<!--
+Copyright 2022 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
 
-This is a starter Adobe Developer App Builder template. Modify it with your own README contents that describe your template.
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+-->
 
-## What is an Adobe Developer App Builder Template?
+# @adobe/universal-editor-ui-ext-tpl
 
-An Adobe Developer App Builder template is a collection of code and configuration that can be used to bootstrap an App Builder application.
+Extensibility Template for Universal Editor
 
-Your template, written in [Yeoman](https://yeoman.io), will run code that can install and edit files for an App Builder app.
+# Prerequisites
+- `nodejs` (v18) and `npm` installed locally - https://nodejs.org/en/
+- `aio` command line tool - https://github.com/adobe/aio-cli, https://developer.adobe.com/runtime/docs/guides/tools/cli_install/
+- Project in Adobe Developer Console
 
-The `install.yml` file will include directives that will further configure the workspaces, and APIs that are needed for your template.
+# Installation
+- `npm install -g @adobe/aio-cli`
 
-## install.yml (TODO)
+# Usage
+- `aio app init <your-folder-name>`
 
-The specification for the file is [here](about:blank)
+# Contributing
+Contributions are welcomed! Read the [Contributing Guide](CONTRIBUTING.md) for more information.
 
-## Yeoman Generator entry point
-
-When your template is installed, it will run the Yeoman generator at `src/index.js`. When run, the current working directory will be the root path of the App Builder app.
-
-## Unit Tests
-
-Run `npm test` to run the unit tests which are located in the `test` folder.
-
-The tests are run using [Jest](https://jestjs.io/).
-
-## End to End Tests
-
-Run `npm run e2e` to run the generator itself.
-
-A sub-folder will be created, and your generator will be run in it. The folder will be called `temp-template-test`.
-
-## How can I submit my template to the Adobe IO Template Registry?
-
-1. [Publish your module to npm](https://docs.npmjs.com/packages-and-modules/contributing-packages-to-the-registry)
-2. Go to [https://github.com/adobe/aio-template-submission/issues](https://github.com/adobe/aio-template-submission/issues)
-3. Select the `New Issue` button
-4. Select `Template Update Request`
-5. Enter the name of your NPM Module
-6. Select `Submit New Issue`
-7. Watch the issue for any updates regarding your issue status
+# Licensing
+This project is licensed under the Apache V2 License. See [LICENSE](LICENSE) for more information.
