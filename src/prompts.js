@@ -20,7 +20,7 @@ var exitMenu = false
 
 const briefOverviews = {
   templateInfo: `\nUniversal Editor Template Overview:\n
-  * You have the option to generate boilerplate code for your extensible buttons, menus, and rails.
+  * You have the option to generate boilerplate code for your extensible buttons and rails.
   * You can get help regarding documentation at any time from the menu.
   * An App Builder project will be created with Node.js packages pre-configured.\n`
 }
@@ -104,6 +104,10 @@ const promptMainMenu = (manifest) => {
       value: nestedButtonPrompts.bind(this, manifest, 'headerMenuButtons'),
     },
     {
+      name: "Add a custom panel to Properties Rail",
+      value: customPanelPrompts.bind(this, manifest, 'customPanelsRails'),
+    },
+    {
       name: "Add server-side handler",
       value: nestedActionPrompts.bind(this, manifest, 'runtimeActions')
     },
@@ -114,10 +118,12 @@ const promptMainMenu = (manifest) => {
         return Promise.resolve(true)
       }
     },
+    /*
     {
       name: "I don't know",
       value: promptGuideMenu.bind(this, manifest)
     }
+    */
   )
 
   return inquirer
@@ -138,6 +144,39 @@ const promptMainMenu = (manifest) => {
     })
 }
 
+const customPanelPrompts = (manifest, manifestNodeName) => {
+  return inquirer
+    .prompt(
+      {
+        type: 'input',
+        name: 'header',
+        message: "Please provide a tooltip label for the rail icon.",
+        validate(answer) {
+          if (!answer.length) {
+            return 'Required.'
+          }
+
+          return true
+        },
+      }
+    )
+    .then((answers) => {
+      answers.id = slugify(answers.label, {
+        replacement: '-',  // replace spaces with replacement character, defaults to `-`
+        remove: undefined, // remove characters that match regex, defaults to `undefined`
+        lower: true,       // convert to lower case, defaults to `false`
+        strict: true,      // strip special characters except replacement, defaults to `false`
+        locale: 'vi',      // language code of the locale to use
+        trim: true         // trim leading and trailing replacement chars, defaults to `true`
+      })
+      // console.log(JSON.stringify(answers, null, '  '))
+      manifest[manifestNodeName] = manifest[manifestNodeName] || []
+      manifest[manifestNodeName].push(answers)
+    })
+    .catch((error) => {
+      console.error(error)
+    })
+}
 // Prompts for button metadata
 const nestedButtonPrompts = (manifest, manifestNodeName) => {
   const questions = [labelPrompt(), modalPrompt()]
