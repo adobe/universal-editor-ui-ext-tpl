@@ -177,11 +177,11 @@ class UniversalEditorWebAssetsGenerator extends Generator {
   _generateRailFiles(extensionArea) {
     // Generic Project
     var relativeTemplatePath = './templates/_shared/stub-rail.ejs'
-    var customPanelsRails = undefined
+    var rightPanelRails = undefined
 
-    customPanelsRails = this.props.extensionManifest.customPanelsRails || []
+    rightPanelRails = this.props.extensionManifest.rightPanelRails || []
 
-    customPanelsRails.forEach((panel) => {
+    rightPanelRails.forEach((panel) => {
         // Demo Project
         /*
         if (this.props.extensionManifest.templateFolder) {

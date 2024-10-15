@@ -105,7 +105,7 @@ const promptMainMenu = (manifest) => {
     },
     {
       name: "Add a custom panel to Properties Rail",
-      value: customPanelPrompts.bind(this, manifest, 'customPanelsRails'),
+      value: customPanelPrompts.bind(this, manifest, 'rightPanelRails'),
     },
     {
       name: "Add server-side handler",
@@ -145,21 +145,9 @@ const promptMainMenu = (manifest) => {
 }
 
 const customPanelPrompts = (manifest, manifestNodeName) => {
+  const questions = [headerPrompt()]
   return inquirer
-    .prompt(
-      {
-        type: 'input',
-        name: 'header',
-        message: "Please provide a tooltip label for the rail icon.",
-        validate(answer) {
-          if (!answer.length) {
-            return 'Required.'
-          }
-
-          return true
-        },
-      }
-    )
+    .prompt(questions)
     .then((answers) => {
       answers.id = slugify(answers.label, {
         replacement: '-',  // replace spaces with replacement character, defaults to `-`
@@ -223,6 +211,21 @@ const modalPrompt = () => {
     name: 'needsModal',
     message: "Do you need to show a modal for the button?",
     default: false
+  }
+}
+
+const headerPrompt = () => {
+  return {
+    type: 'input',
+    name: 'header',
+    message: "Please provide a tooltip label for the rail icon:",
+    validate(answer) {
+      if (!answer.length) {
+        return 'Required.'
+      }
+
+      return true
+    },
   }
 }
 

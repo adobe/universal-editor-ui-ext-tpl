@@ -13,13 +13,13 @@ function ExtensionRegistration() {
       id: extensionId,
       metadata,
       methods: {
-        <%_ if (extensionManifest.headerMenuButtons || extensionManifest.customPanelsRails) { -%>
-          <%_ if (extensionManifest.customPanelsRails) { -%>
+        <%_ if (extensionManifest.headerMenuButtons || extensionManifest.rightPanelRails) { -%>
+          <%_ if (extensionManifest.rightPanelRails) { -%>
         rightPanel: {
           addRails() {
             return [
               // YOUR ACTION BAR BUTTONS CODE SHOULD BE HERE
-              <%_ extensionManifest.customPanelsRails.forEach((panel) => { -%>
+              <%_ extensionManifest.rightPanelRails.forEach((panel) => { -%>
               {
                 'id': '<%- panel.id %>',
                 'header': '<%- panel.header %>',

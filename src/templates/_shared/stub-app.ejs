@@ -13,8 +13,8 @@ import ExtensionRegistration from "./ExtensionRegistration";
     <%_ const modalFileName = button.label.replace(/ /g, '') + 'Modal' -%>
 import <%- modalFileName %> from "./<%- modalFileName %>";
 <%_ }}) -%>
-<%_ const customPanelsRails = extensionManifest.customPanelsRails || [] -%>
-<%_ customPanelsRails.forEach((panel) => { -%>
+<%_ const rightPanelRails = extensionManifest.rightPanelRails || [] -%>
+<%_ rightPanelRails.forEach((panel) => { -%>
     <%_ const railFileName = panel.header.replace(/ /g, '') + 'Rail' -%>
 import <%- railFileName %> from "./<%- railFileName %>";
 <%_ }) -%>
@@ -37,8 +37,8 @@ function App() {
             element={<<%- button.label.replace(/ /g, '') %>Modal />}
           />
           <%_ }})} -%>
-          <%_ if (extensionManifest.customPanelsRails) { -%>
-            <%_ extensionManifest.customPanelsRails.forEach((panel) => { -%>
+          <%_ if (extensionManifest.rightPanelRails) { -%>
+            <%_ extensionManifest.rightPanelRails.forEach((panel) => { -%>
           <Route
             exact path="<%- panel.id %>-rail"
             element={<<%- panel.header.replace(/ /g, '') %>Rail />}
