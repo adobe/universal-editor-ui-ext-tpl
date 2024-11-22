@@ -114,12 +114,9 @@ class UniversalEditorWebAssetsGenerator extends Generator {
     var relativeTemplatePath = './templates/_shared/stub-app.ejs'
 
     // Demo Project
-    /*
     if (this.props.extensionManifest.templateFolder) {
       relativeTemplatePath = `./templates/${this.props.extensionManifest.templateFolder}/app.ejs`
     }
-
-    */
 
     this.fs.copyTpl(
       this.templatePath(relativeTemplatePath),
@@ -133,11 +130,9 @@ class UniversalEditorWebAssetsGenerator extends Generator {
     var relativeTemplatePath = './templates/_shared/stub-extension-registration.ejs'
     
     // Demo Project
-    /*
     if (this.props.extensionManifest.templateFolder) {
       relativeTemplatePath = `./templates/${this.props.extensionManifest.templateFolder}/extension-registration.ejs`
     }
-    */
 
     this.fs.copyTpl(
       this.templatePath(relativeTemplatePath),
@@ -154,14 +149,7 @@ class UniversalEditorWebAssetsGenerator extends Generator {
     customButtons = this.props.extensionManifest.headerMenuButtons || []
 
     customButtons.forEach((button) => {
-      if (button.needsModal) {
-        // Demo Project
-        /*
-        if (this.props.extensionManifest.templateFolder) {
-          relativeTemplatePath = `./templates/${this.props.extensionManifest.templateFolder}/${button.id}-modal.js`
-        }
-        */
-        
+      if (button.needsModal) {  
         const modalFileName = button.label.replace(/ /g, '') + 'Modal'
         this.fs.copyTpl(
           this.templatePath(relativeTemplatePath),
@@ -182,13 +170,6 @@ class UniversalEditorWebAssetsGenerator extends Generator {
     rightPanelRails = this.props.extensionManifest.rightPanelRails || []
 
     rightPanelRails.forEach((panel) => {
-        // Demo Project
-        /*
-        if (this.props.extensionManifest.templateFolder) {
-          relativeTemplatePath = `./templates/${this.props.extensionManifest.templateFolder}/${button.id}-modal.js`
-        }
-        */
-        
         const railFileName = panel.header.replace(/ /g, '') + 'Rail'
         this.fs.copyTpl(
           this.templatePath(relativeTemplatePath),

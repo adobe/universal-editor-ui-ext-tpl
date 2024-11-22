@@ -16,17 +16,22 @@ const path = require('path')
 
 const { readManifest } = require('./utils')
 
+const DEMO_MANIFEST_PATH = path.join(__dirname, './templates/demo/extension-manifest.json')
+
 var exitMenu = false
 
 const briefOverviews = {
   templateInfo: `\nUniversal Editor Template Overview:\n
   * You have the option to generate boilerplate code for your extensible buttons and rails.
   * You can get help regarding documentation at any time from the menu.
+  * You can check out a sample demo project.
   * An App Builder project will be created with Node.js packages pre-configured.\n`
 }
 
 const promptDocs = {
   mainDoc: "https://developer.adobe.com/uix/docs/",
+  demoDoc: "https://medium.com/@bryanrwilliams/building-a-custom-field-for-adobe-universal-editor-e327d1abce80"
+
 }
 
 // Top Level prompts
@@ -118,12 +123,10 @@ const promptMainMenu = (manifest) => {
         return Promise.resolve(true)
       }
     },
-    /*
     {
       name: "I don't know",
       value: promptGuideMenu.bind(this, manifest)
     }
-    */
   )
 
   return inquirer
@@ -274,19 +277,17 @@ const promptGuideMenu = (manifest) => {
     {
       name: "Try a demo project",
       value: () => {
-        const slackDemoManifest = readManifest(SLACK_DEMO_MANIFEST_PATH)
+        const demoManifest = readManifest(DEMO_MANIFEST_PATH)
 
         // Update the extension manifest object
-        manifest['name'] = slackDemoManifest['name'] || null
-        manifest['id'] = slackDemoManifest['id'] || null
-        manifest['description'] = slackDemoManifest['description'] || null
-        manifest['version'] = slackDemoManifest['version'] || null
-        manifest['templateFolder'] = slackDemoManifest['templateFolder'] || null
-        manifest['actionBarButtons'] = slackDemoManifest['actionBarButtons'] || null
-        manifest['headerMenuButtons'] = slackDemoManifest['headerMenuButtons'] || null
-        manifest['runtimeActions'] = slackDemoManifest['runtimeActions'] || null
-        manifest['templateInputs'] = slackDemoManifest['templateInputs'] || null
-        manifest['templateDotEnvVars'] = slackDemoManifest['templateDotEnvVars'] || null
+        manifest['name'] = demoManifest['name'] || null
+        manifest['id'] = demoManifest['id'] || null
+        manifest['description'] = demoManifest['description'] || null
+        manifest['version'] = demoManifest['version'] || null
+        manifest['templateFolder'] = demoManifest['templateFolder'] || null
+        manifest['customRenderers'] = demoManifest['customRenderers'] || null
+        //manifest['templateInputs'] = demoManifest['templateInputs'] || null
+        //manifest['templateDotEnvVars'] = demoManifest['templateDotEnvVars'] || null
         exitMenu = true
 
         return Promise.resolve(true)
