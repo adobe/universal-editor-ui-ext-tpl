@@ -16,15 +16,7 @@ import ErrorBoundary from "react-error-boundary"
 import { HashRouter as Router, Routes, Route } from "react-router-dom"
 
 import ExtensionRegistration from "./ExtensionRegistration"
-<%# "Add import statements for modals" -%>
-<% const actionBarButtons = extensionManifest.actionBarButtons || [] -%>
-<% const headerMenuButtons = extensionManifest.headerMenuButtons || [] -%>
-<% const allCustomButtons = actionBarButtons.concat(headerMenuButtons) -%>
-  <% allCustomButtons.forEach((button) => { -%>
-    <% if (button.needsModal) { -%>
-      <% const modalFileName = button.label.replace(/ /g, '') + 'Modal' %>
-import <%- modalFileName %> from "./<%- modalFileName %>"
-<% }}) -%>
+import CustomsliderRenderer from "./CustomsliderRenderer";
 
 function App(props) {
   return (
@@ -37,22 +29,10 @@ function App(props) {
             exact path="index.html"
             element={<ExtensionRegistration />} 
           />
-          <% if (extensionManifest.actionBarButtons) { -%>
-            <% extensionManifest.actionBarButtons.forEach((button) => { -%>
-              <% if (button.needsModal) { %>
           <Route
-            exact path="content-fragment/:fragments/<%- button.id %>-modal"
-            element={<<%- button.label.replace(/ /g, '') %>Modal />}
+              exact path="renderer/slider"
+              element={<SpectrumSliderRenderer/>}
           />
-          <% }})} -%>
-          <% if (extensionManifest.headerMenuButtons) { -%>
-            <% extensionManifest.headerMenuButtons.forEach((button) => { -%>
-              <% if (button.needsModal) { %>
-          <Route
-            exact path="<%- button.id %>-modal"
-            element={<<%- button.label.replace(/ /g, '') %>Modal />}
-          />
-          <% }})} %>
         </Routes>
       </ErrorBoundary>
     </Router>

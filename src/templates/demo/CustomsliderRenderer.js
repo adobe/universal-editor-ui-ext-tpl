@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { attach } from "@adobe/uix-guest"
 import { extensionId } from "./Constants"
 
-const SpectrumSliderRenderer = () => {
+const CustomsliderRenderer = () => {
     const [isLoading, setIsLoading] = useState(true)
     const [guestConnection, setGuestConnection] = useState()
     const [model, setModel] = useState()

@@ -11,6 +11,8 @@ governing permissions and limitations under the License.
 
 const fs = require('fs-extra')
 
+const VALID_DATATYPES = ['text', 'richtext', 'media', 'container', 'component', 'reference'];
+
 function readManifest (manifestPath) {
   try {
     return JSON.parse(
@@ -31,5 +33,6 @@ function writeManifest (manifest, manifestPath) {
 
 module.exports = {
   readManifest,
-  writeManifest
+  writeManifest,
+  VALID_DATATYPES
 }

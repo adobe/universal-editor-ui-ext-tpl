@@ -1,13 +1,13 @@
 {
-  "name": "Slack Import/Export Extension Demo",
-  "id": "slack-import-export-extension-demo",
-  "description": "Demo Extension to showcase import/export functionality using custom buttons within AEM Content Fragment Console",
+  "name": "Custom Slider Extension Demo",
+  "id": "custom-slider-extension-demo",
+  "description": "Demo Extension to showcase custom field rendering functionality within AEM Universal Editor",
   "version": "1.0.0",
   "templateFolder": "demo",
   "customRenderers": [
     {
-      "dataType": "slider"
-
+      "dataType": "slider",
+      "url": "/#/renderer/slider"
     }
   ]
 }

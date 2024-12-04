@@ -18,6 +18,11 @@ import <%- modalFileName %> from "./<%- modalFileName %>";
     <%_ const railFileName = panel.header.replace(/ /g, '') + 'Rail' -%>
 import <%- railFileName %> from "./<%- railFileName %>";
 <%_ }) -%>
+<%_ const customRenderers = extensionManifest.customRenderers || [] -%>
+<%_ customRenderers.forEach((render) => { -%>
+    <%_ const rendererFileName = 'Custom' + render.dataType + 'Renderer' -%>
+import <%- rendererFileName %> from "./<%- rendererFileName %>";
+<%_ }) -%>
 
 function App() {
   return (
@@ -42,6 +47,13 @@ function App() {
           <Route
             exact path="<%- panel.id %>-rail"
             element={<<%- panel.header.replace(/ /g, '') %>Rail />}
+          />
+          <%_ })} -%>
+          <%_ if (extensionManifest.customRenderers) { -%>
+            <%_ extensionManifest.customRenderers.forEach((render) => { -%>
+          <Route
+            exact path="<%- render.url %>-rail"
+            element={<Custom<%- render.dataType %>Renderer />}
           />
           <%_ })} -%>
           // YOUR CUSTOM ROUTES SHOULD BE HERE

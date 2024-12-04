@@ -161,7 +161,7 @@ class MainGenerator extends Generator {
     this.log(chalk.bold('1) Populate your local environment variables in the ".env" file.'))
     this.log(chalk.bold('2) You can use `aio app run` or `aio app deploy` to see the sample code files in action.'))
     if (this.extensionManifest.templateFolder) {
-      this.log(chalk.bold('3) Please refer to the link below for configuring the demo application:'))
+      this.log(chalk.bold('3) Please refer to the link below for documentation on the demo application:'))
       this.log(chalk.blue(chalk.bold(`   -> ${promptDocs['demoDoc']}`)))
     }
     this.log('\n')

@@ -13,7 +13,7 @@ function ExtensionRegistration() {
       id: extensionId,
       metadata,
       methods: {
-        <%_ if (extensionManifest.headerMenuButtons || extensionManifest.rightPanelRails) { -%>
+        <%_ if (extensionManifest.headerMenuButtons || extensionManifest.rightPanelRails || extensionManifest.customRenderers) { -%>
           <%_ if (extensionManifest.rightPanelRails) { -%>
         rightPanel: {
           addRails() {
@@ -25,6 +25,21 @@ function ExtensionRegistration() {
                 'header': '<%- panel.header %>',
                 'icon': 'PublishCheck',
                 'url': '/#/<%- panel.id %>-rail'
+              },
+              <%_ }) -%>
+            ];
+          },
+        },
+        <%_ } -%>
+        <%_ if (extensionManifest.customRenderers) { -%>
+        canvas: {
+          getRenderers() {
+            return [
+              // YOUR CUSTOM RENDERERS SHOULD BE HERE
+              <%_ extensionManifest.customRenderers.forEach((render) => { -%>
+              {
+                'dataType': '<%- render.dataType %>',
+                'url': '<%- render.url %>'
               },
               <%_ }) -%>
             ];

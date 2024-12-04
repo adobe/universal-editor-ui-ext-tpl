@@ -14,7 +14,7 @@ const slugify = require('slugify')
 const chalk = require('chalk')
 const path = require('path')
 
-const { readManifest } = require('./utils')
+const { readManifest, VALID_DATATYPES } = require('./utils')
 
 const DEMO_MANIFEST_PATH = path.join(__dirname, './templates/demo/extension-manifest.json')
 
@@ -113,6 +113,10 @@ const promptMainMenu = (manifest) => {
       value: customPanelPrompts.bind(this, manifest, 'rightPanelRails'),
     },
     {
+      name: "Add a custom renderer for a data type field within the Properties Rail",
+      value: customRendererPrompts.bind(this, manifest, 'customRenderers'),
+    },
+    {
       name: "Add server-side handler",
       value: nestedActionPrompts.bind(this, manifest, 'runtimeActions')
     },
@@ -168,6 +172,21 @@ const customPanelPrompts = (manifest, manifestNodeName) => {
       console.error(error)
     })
 }
+
+const customRendererPrompts = (manifest, manifestNodeName) => {
+  const questions = [dataTypePrompt()]
+  return inquirer
+    .prompt(questions)
+    .then((answers) => {
+      answers.url = `/#/renderer/${answers.dataType}`
+      manifest[manifestNodeName] = manifest[manifestNodeName] || []
+      manifest[manifestNodeName].push(answers)
+    })
+    .catch((error) => {
+      console.error(error)
+    })
+}
+
 // Prompts for button metadata
 const nestedButtonPrompts = (manifest, manifestNodeName) => {
   const questions = [labelPrompt(), modalPrompt()]
@@ -227,6 +246,23 @@ const headerPrompt = () => {
         return 'Required.'
       }
 
+      return true
+    },
+  }
+}
+
+const dataTypePrompt = () => {
+  return {
+    type: 'input',
+    name: 'dataType',
+    message: "Please provide the data type for the custom renderer:",
+    validate(answer) {
+      if (!answer.length) {
+        return 'Required.'
+      }
+      if(!VALID_DATATYPES.includes(answer)) {
+        return 'Invalid data type. Valid answers are: ' + VALID_DATATYPES.join(', ') + '.'
+      } 
       return true
     },
   }
