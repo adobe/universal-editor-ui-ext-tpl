@@ -156,7 +156,7 @@ const customPanelPrompts = (manifest, manifestNodeName) => {
   return inquirer
     .prompt(questions)
     .then((answers) => {
-      answers.id = slugify(answers.label, {
+      answers.id = slugify(answers.header, {
         replacement: '-',  // replace spaces with replacement character, defaults to `-`
         remove: undefined, // remove characters that match regex, defaults to `undefined`
         lower: true,       // convert to lower case, defaults to `false`
