@@ -1,0 +1,13 @@
+{
+  "name": "Custom Slider Extension Demo",
+  "id": "custom-slider-extension-demo",
+  "description": "Demo Extension to showcase custom field rendering functionality within AEM Universal Editor",
+  "version": "1.0.0",
+  "templateFolder": "demo",
+  "customRenderers": [
+    {
+      "dataType": "slider",
+      "url": "/#/renderer/slider"
+    }
+  ]
+}

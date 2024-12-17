@@ -1,0 +1,84 @@
+/*
+ * <license header>
+ */
+
+import { Text } from "@adobe/react-spectrum";
+import { register } from "@adobe/uix-guest";
+import { extensionId } from "./Constants";
+import metadata from '../../../../app-metadata.json';
+
+function ExtensionRegistration() {
+  const init = async () => {
+    const guestConnection = await register({
+      id: extensionId,
+      metadata,
+      methods: {
+        <%_ if (extensionManifest.headerMenuButtons || extensionManifest.rightPanelRails || extensionManifest.customRenderers) { -%>
+          <%_ if (extensionManifest.rightPanelRails) { -%>
+        rightPanel: {
+          addRails() {
+            return [
+              // YOUR ACTION BAR BUTTONS CODE SHOULD BE HERE
+              <%_ extensionManifest.rightPanelRails.forEach((panel) => { -%>
+              {
+                'id': '<%- panel.id %>',
+                'header': '<%- panel.header %>',
+                'icon': 'PublishCheck',
+                'url': '/#/<%- panel.id %>-rail'
+              },
+              <%_ }) -%>
+            ];
+          },
+        },
+        <%_ } -%>
+        <%_ if (extensionManifest.customRenderers) { -%>
+        canvas: {
+          getRenderers() {
+            return [
+              // YOUR CUSTOM RENDERERS SHOULD BE HERE
+              <%_ extensionManifest.customRenderers.forEach((render) => { -%>
+              {
+                'dataType': '<%- render.dataType %>',
+                'url': '<%- render.url %>'
+              },
+              <%_ }) -%>
+            ];
+          },
+        },
+        <%_ } -%>
+          <%_ if (extensionManifest.headerMenuButtons) { -%>
+        headerMenu: {
+          getButtons() {
+            return [
+              // YOUR HEADER BUTTONS CODE SHOULD BE HERE
+              <%_ extensionManifest.headerMenuButtons.forEach((button) => { -%>
+              {
+                'id': '<%- button.id %>',
+                'label': '<%- button.label %>',
+                'icon': 'OpenIn',
+                onClick() {
+                <%_ if (button.needsModal) { -%>
+                  const modalURL = "/index.html#/<%- button.id %>-modal";
+                  console.log("Modal URL: ", modalURL);
+
+                  guestConnection.host.modal.showUrl({
+                    title: "<%- button.label %>",
+                    url: modalURL,
+                  });
+                <%_ } -%>
+                },
+              },
+              <%_ }) -%>
+            ];
+          },
+        },
+          <%_ }} -%>
+      },
+    });
+  };
+  init().catch(console.error);
+
+  return <Text>IFrame for integration with Host (AEM)...</Text>
+}
+
+export default ExtensionRegistration;

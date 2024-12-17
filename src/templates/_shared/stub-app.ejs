@@ -1,0 +1,83 @@
+/*
+ * <license header>
+ */
+
+import React from "react";
+import ErrorBoundary from "react-error-boundary";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
+import ExtensionRegistration from "./ExtensionRegistration";
+<%# "Add import statements for modals" -%>
+<%_ const headerMenuButtons = extensionManifest.headerMenuButtons || [] -%>
+<%_ headerMenuButtons.forEach((button) => { -%>
+  <%_ if (button.needsModal) { -%>
+    <%_ const modalFileName = button.label.replace(/ /g, '') + 'Modal' -%>
+import <%- modalFileName %> from "./<%- modalFileName %>";
+<%_ }}) -%>
+<%_ const rightPanelRails = extensionManifest.rightPanelRails || [] -%>
+<%_ rightPanelRails.forEach((panel) => { -%>
+    <%_ const railFileName = panel.header.replace(/ /g, '') + 'Rail' -%>
+import <%- railFileName %> from "./<%- railFileName %>";
+<%_ }) -%>
+<%_ const customRenderers = extensionManifest.customRenderers || [] -%>
+<%_ customRenderers.forEach((render) => { -%>
+    <%_ const rendererFileName = 'Custom' + render.dataType + 'Renderer' -%>
+import <%- rendererFileName %> from "./<%- rendererFileName %>";
+<%_ }) -%>
+
+function App() {
+  return (
+    <Router>
+      <ErrorBoundary onError={onError} FallbackComponent={fallbackComponent}>
+        <Routes>
+          <Route index element={<ExtensionRegistration />} />
+          <Route
+            exact path="index.html"
+            element={<ExtensionRegistration />} 
+          />
+          <%_ if (extensionManifest.headerMenuButtons) { -%>
+            <%_ extensionManifest.headerMenuButtons.forEach((button) => { -%>
+              <%_ if (button.needsModal) { -%>
+          <Route
+            exact path="<%- button.id %>-modal"
+            element={<<%- button.label.replace(/ /g, '') %>Modal />}
+          />
+          <%_ }})} -%>
+          <%_ if (extensionManifest.rightPanelRails) { -%>
+            <%_ extensionManifest.rightPanelRails.forEach((panel) => { -%>
+          <Route
+            exact path="<%- panel.id %>-rail"
+            element={<<%- panel.header.replace(/ /g, '') %>Rail />}
+          />
+          <%_ })} -%>
+          <%_ if (extensionManifest.customRenderers) { -%>
+            <%_ extensionManifest.customRenderers.forEach((render) => { -%>
+          <Route
+            exact path="<%- render.url %>-rail"
+            element={<Custom<%- render.dataType %>Renderer />}
+          />
+          <%_ })} -%>
+          // YOUR CUSTOM ROUTES SHOULD BE HERE
+        </Routes>
+      </ErrorBoundary>
+    </Router>
+  )
+
+  // Methods
+
+  // error handler on UI rendering failure
+  function onError(e, componentStack) {}
+
+  // component to show if UI fails rendering
+  function fallbackComponent({ componentStack, error }) {
+    return (
+      <React.Fragment>
+        <h1 style={{ textAlign: "center", marginTop: "20px" }}>
+          Phly, phly... Something went wrong :(
+        </h1>
+        <pre>{componentStack + "\n" + error.message}</pre>
+      </React.Fragment>
+    )
+  }
+}
+
+export default App
